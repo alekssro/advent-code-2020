@@ -18,23 +18,28 @@ func main() {
 	// iterate over lines
 	for i, line1 := range lines {
 		for j, line2 := range lines {
-
-			// skip at same line
 			if i == j {
 				break
 			}
+			for k, line3 := range lines {
+				// skip at same line
+				if i == k || j == k {
+					break
+				}
 
-			// transform to int
-			num1 := toInt(line1)
-			num2 := toInt(line2)
+				// transform to int
+				num1 := toInt(line1)
+				num2 := toInt(line2)
+				num3 := toInt(line3)
 
-			// check if sum equal 2020
-			if num1+num2 == 2020 {
-				// print result of multiplying (submission)
-				fmt.Println(num1 * num2)
+				// check if sum equal 2020
+				if num1+num2+num3 == 2020 {
+					// fmt.Println(num1, num2, num3)
+					// print result of multiplying (submission)
+					fmt.Println(num1 * num2 * num3)
+				}
 			}
 		}
-
 	}
 }
 
