@@ -5,11 +5,16 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"strconv"
+	"time"
 )
 
 func main() {
+
+	// track total time
+	defer timeTrack(time.Now(), "main")
 
 	// First: Read lines of the input files into an array
 	lines, err := readLines("input.txt")
@@ -65,4 +70,9 @@ func toInt(s string) int {
 	check(err)
 
 	return num
+}
+
+func timeTrack(start time.Time, name string) {
+	elapsed := time.Since(start)
+	log.Printf("%s took %s", name, elapsed)
 }
