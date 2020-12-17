@@ -20,11 +20,33 @@ func main() {
 	lines, err := readLines("input.txt")
 	check(err)
 
+	// init variables
+	answeredYes := ""
+	totalYes := 0
+
 	// iterate over lines
 	for i, line := range lines {
-		fmt.Println(i, line)
+		if line != "" {
+			for _, letter := range line {
+				// if letter not in answeredYes, add to string
+				if !runeInString(letter, answeredYes) {
+					answeredYes += string(letter)
+				}
+			}
 
+		} else if line == "" {
+			// add group 'yes' answers and reset answers
+			// 		when blank line or EOF
+			totalYes += len(answeredYes)
+			answeredYes = ""
+		}
+
+		if i == len(lines)-1 {
+			// sum last group at EOF
+			totalYes += len(answeredYes)
+		}
 	}
+	fmt.Println(totalYes)
 }
 
 // Check if error
@@ -32,6 +54,16 @@ func check(e error) {
 	if e != nil {
 		panic(e)
 	}
+}
+
+// Search if rune is in string
+func runeInString(a rune, str string) bool {
+	for i := range str {
+		if a == rune(str[i]) {
+			return true
+		}
+	}
+	return false
 }
 
 // Read a whole file into the memory and store it as array of lines
